@@ -4,7 +4,8 @@
   gap: 2rem;
 }
 
-.scene-4_container {
+.scene-4_container, 
+.scene-6_container {
   position: relative;
   width: 800px;
   height: 600px;
@@ -24,4 +25,10 @@
 
 .fullscreen-icon:hover {
   transform: scale(1.1);
+}
+
+.debug_scene_6_container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
