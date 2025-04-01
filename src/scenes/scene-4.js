@@ -4,8 +4,41 @@ import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 import { SIZES } from "../constants";
 
+const toggleCanvasFullscreen = () => {
+  const fullscreenElement =
+    document.fullscreenElement || document.webkitFullscreenElement;
+
+  // Toggle fullscreen
+  if (!fullscreenElement) {
+    if (canvas.requestFullscreen) {
+      canvas.requestFullscreen();
+    } else if (canvas.webkitRequestFullscreen) {
+      canvas.webkitRequestFullscreen();
+    }
+
+    // Update sizes after requesting fullscreen
+    const width = window.screen.width;
+    const height = window.screen.height;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+};
+
 // Canvas
 const canvas = document.querySelector("canvas.webgl_scene_4");
+
+// Fullscreen
+const fullscreenIcon = document.querySelector(".fullscreen-icon");
 
 // Scenes
 const scene = new THREE.Scene();
@@ -48,7 +81,8 @@ const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
 });
 renderer.setSize(SIZES.WIDTH, SIZES.HEIGHT);
-// renderer.render(scene, camera);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.render(scene, camera);
 
 // Clock
 const clock = new THREE.Clock();
@@ -60,6 +94,24 @@ gsap.to(torus.position, {
   ease: "power2.inOut",
   repeat: -1,
   yoyo: true,
+});
+
+// Fullscreen
+fullscreenIcon.addEventListener("click", toggleCanvasFullscreen);
+canvas.addEventListener("dblclick", toggleCanvasFullscreen);
+
+window.addEventListener("fullscreenchange", () => {
+  const fullscreenElement =
+    document.fullscreenElement || document.webkitFullscreenElement;
+
+  if (!fullscreenElement) {
+    // Reset to original size
+    camera.aspect = SIZES.ASPECT_RATIO;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(SIZES.WIDTH, SIZES.HEIGHT);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  }
 });
 
 // Animations
