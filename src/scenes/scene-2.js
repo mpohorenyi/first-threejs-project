@@ -50,7 +50,7 @@ group.add(sphere);
 /**
  * Camera
  */
-const camera = new THREE.PerspectiveCamera(75, SIZES.WIDTH / SIZES.HEIGHT);
+const camera = new THREE.PerspectiveCamera(75, SIZES.ASPECT_RATIO);
 camera.position.z = 4;
 
 scene.add(camera);
