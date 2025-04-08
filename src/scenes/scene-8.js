@@ -13,7 +13,12 @@ const scene = new THREE.Scene();
 /**
  * Debug
  */
-const gui = new GUI();
+const gui = new GUI({
+  width: 300,
+  container: document.querySelector(".debug_scene_8_container"),
+  title: "Scene 8 Debug",
+  closeFolders: true,
+});
 
 /**
  * Textures

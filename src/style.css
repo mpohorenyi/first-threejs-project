@@ -5,7 +5,8 @@
 }
 
 .scene-4_container, 
-.scene-6_container {
+.scene-6_container,
+.scene-8_container {
   position: relative;
   width: 800px;
   height: 600px;
@@ -27,7 +28,8 @@
   transform: scale(1.1);
 }
 
-.debug_scene_6_container {
+.debug_scene_6_container,
+.debug_scene_8_container {
   position: absolute;
   top: 1rem;
   right: 1rem;
